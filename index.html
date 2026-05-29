@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>سيف الدين أشرف — Portfolio</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700;900&family=Cairo:wght@300;400;600;700&display=swap" rel="stylesheet">
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { background: #0a0a0a; color: #e8e2d9; font-family: 'Cairo', sans-serif; min-height: 100vh; }
+  .wrap { position: relative; z-index: 1; max-width: 860px; margin: 0 auto; padding: 0 2rem 4rem; }
+
+  .hero { border-bottom: 1px solid #2a2a2a; padding: 3rem 0 2rem; display: grid; grid-template-columns: 1fr auto; align-items: end; gap: 2rem; }
+  .hero-kicker { font-size: 11px; letter-spacing: 0.18em; text-transform: uppercase; color: #c9a96e; margin-bottom: 1rem; font-weight: 600; }
+  .hero-name { font-family: 'Playfair Display', serif; font-size: clamp(2.4rem, 6vw, 4rem); font-weight: 900; line-height: 1.05; color: #f0ebe3; letter-spacing: -0.02em; }
+  .hero-name span { color: #c9a96e; }
+  .hero-desc { margin-top: 1rem; font-size: 14px; color: #888; line-height: 1.7; max-width: 480px; font-weight: 300; }
+  .hero-meta { text-align: left; font-size: 12px; color: #555; line-height: 2; white-space: nowrap; font-weight: 300; }
+  .hero-meta a { color: #c9a96e; text-decoration: none; }
+
+  .section-label { font-size: 10px; letter-spacing: 0.2em; text-transform: uppercase; color: #c9a96e; font-weight: 700; margin: 3rem 0 1.5rem; display: flex; align-items: center; gap: 1rem; }
+  .section-label::after { content: ''; flex: 1; height: 1px; background: #1e1e1e; }
+
+  .featured { border: 1px solid #1e1e1e; padding: 2rem; margin-bottom: 1.5rem; position: relative; transition: border-color 0.2s; }
+  .featured:hover { border-color: #333; }
+  .featured-badge { position: absolute; top: -1px; right: -1px; background: #c9a96e; color: #0a0a0a; font-size: 9px; font-weight: 700; letter-spacing: 0.15em; text-transform: uppercase; padding: 4px 10px; }
+  .featured-category { font-size: 10px; color: #c9a96e; letter-spacing: 0.15em; text-transform: uppercase; font-weight: 600; margin-bottom: 0.75rem; }
+  .featured-title { font-family: 'Playfair Display', serif; font-size: clamp(1.4rem, 3vw, 1.9rem); font-weight: 700; color: #f0ebe3; line-height: 1.25; margin-bottom: 0.75rem; }
+  .featured-excerpt { font-size: 14px; color: #777; line-height: 1.8; font-weight: 300; }
+  .featured-footer { margin-top: 1.5rem; display: flex; align-items: center; justify-content: space-between; padding-top: 1rem; border-top: 1px solid #1a1a1a; }
+  .featured-pub { font-size: 11px; color: #555; font-weight: 300; }
+  .featured-pub strong { color: #888; font-weight: 600; }
+  .read-link { font-size: 11px; color: #c9a96e; text-decoration: none; letter-spacing: 0.1em; text-transform: uppercase; font-weight: 700; display: flex; align-items: center; gap: 6px; transition: gap 0.2s; }
+  .read-link:hover { gap: 10px; }
+
+  .articles-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1px; background: #1a1a1a; border: 1px solid #1a1a1a; margin-bottom: 1px; }
+  .article-card { background: #0a0a0a; padding: 1.5rem; transition: background 0.2s; }
+  .article-card:hover { background: #0f0f0f; }
+  .article-card .cat { font-size: 9px; color: #c9a96e; letter-spacing: 0.18em; text-transform: uppercase; font-weight: 700; margin-bottom: 0.6rem; }
+  .article-card h3 { font-family: 'Playfair Display', serif; font-size: 1.05rem; font-weight: 700; color: #e8e2d9; line-height: 1.35; margin-bottom: 0.5rem; }
+  .article-card p { font-size: 12px; color: #555; line-height: 1.7; font-weight: 300; }
+  .article-card a.read { display: inline-block; margin-top: 1rem; font-size: 10px; color: #c9a96e; text-decoration: none; letter-spacing: 0.1em; text-transform: uppercase; font-weight: 700; }
+
+  .source-badge { display: inline-block; font-size: 9px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; padding: 2px 8px; border: 1px solid #333; color: #555; margin-bottom: 0.75rem; }
+
+  .skills-row { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 0.5rem; }
+  .skill-tag { font-size: 10px; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; padding: 5px 12px; border: 1px solid #222; color: #666; }
+  .skill-tag.gold { border-color: #c9a96e44; color: #c9a96e; }
+
+  .about-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; margin-top: 0.5rem; }
+  .about-block h4 { font-size: 10px; color: #c9a96e; letter-spacing: 0.15em; text-transform: uppercase; font-weight: 700; margin-bottom: 0.75rem; }
+  .about-block p { font-size: 13px; color: #666; line-height: 1.8; font-weight: 300; }
+
+  .contact-strip { margin-top: 3rem; border-top: 1px solid #1a1a1a; padding-top: 2rem; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 1rem; }
+  .contact-strip p { font-size: 12px; color: #444; font-weight: 300; }
+  .contact-strip a { font-size: 11px; color: #c9a96e; text-decoration: none; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; }
+  .divider { color: #2a2a2a; margin: 0 0.5rem; }
+
+  @media (max-width: 600px) {
+    .articles-grid { grid-template-columns: 1fr; }
+    .about-grid { grid-template-columns: 1fr; }
+    .hero { grid-template-columns: 1fr; }
+    .hero-meta { text-align: right; }
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <header class="hero">
+    <div>
+      <p class="hero-kicker">Portfolio — كاتب ومحرر ثقافي</p>
+      <h1 class="hero-name">سيف الدين<br><span>أشرف</span></h1>
+      <p class="hero-desc">كاتب في الإعلام الرقمي متخصص في النقد الثقافي، صحافة الموسيقى، وتحليل المشهد الاجتماعي. أكتب بالعربية عن الأشياء التي تستحق أن تُقال.</p>
+    </div>
+    <div class="hero-meta">
+      <div>مجلة <strong style="color:#888">Rap Scene</strong> — كاتب مساهم</div>
+      <div>+٢ سنة خبرة في الإعلام الرقمي</div>
+      <div><a href="mailto:saifashraf2373@gmail.com">saifashraf2373@gmail.com</a></div>
+      <div><a href="https://www.instagram.com/robotic_saif" target="_blank">@robotic_saif</a></div>
+    </div>
+  </header>
+
+  <p class="section-label">المقالات المختارة</p>
+
+  <article class="featured">
+    <div class="featured-badge">مقال مميز</div>
+    <p class="featured-category">موسيقى · هوية</p>
+    <h2 class="featured-title">أزمة الأرشيف</h2>
+    <p class="featured-excerpt">عندما يختفي الأرشيف، لا تختفي الأغاني فقط — تختفي الذاكرة الجماعية لجيل بأكمله. مقال يفكّك علاقة المنصات الرقمية بمحو الموروث الثقافي في مشهد الموسيقى المستقلة العربية.</p>
+    <div class="featured-footer">
+      <span class="featured-pub">نُشر في <strong>Rap Scene</strong></span>
+      <a class="read-link" href="https://www.instagram.com/p/DRAG2AJCB4Z/" target="_blank">اقرأ المقال ←</a>
+    </div>
+  </article>
+
+  <article class="featured">
+    <p class="featured-category">سينما · هوية بصرية</p>
+    <h2 class="featured-title">لماذا السينما المغربية بهذا القوة؟</h2>
+    <p class="featured-excerpt">المغرب لا يُنتج أفلامًا فحسب — بل يبني لغة بصرية خاصة به. تحليل لعوامل صعود السينما المغربية وكيف حوّلت الهامش إلى مركز على الخريطة السينمائية العربية والدولية.</p>
+    <div class="featured-footer">
+      <span class="featured-pub">نُشر في <strong>Rap Scene</strong></span>
+      <a class="read-link" href="https://www.instagram.com/p/DRfbWdACCoq/" target="_blank">اقرأ المقال ←</a>
+    </div>
+  </article>
+
+  <div class="articles-grid">
+
+    <article class="article-card">
+      <p class="cat">موسيقى · نقد</p>
+      <h3>مروان بابلو ومولوتوف</h3>
+      <p>عن التصادم بين جيلين وصوتين مختلفين — وما يقوله هذا عن تطور الراب العربي وحدود الهوية داخله.</p>
+      <a class="read" href="https://www.instagram.com/p/DR0Fh-SiE0G/" target="_blank">اقرأ المقال ←</a>
+    </article>
+
+    <article class="article-card">
+      <p class="cat">مشهد موسيقي · جغرافيا</p>
+      <h3>الموجة السودانية الجديدة</h3>
+      <p>الخرطوم تُنتج صوتًا لا يشبه أحدًا. رصد للحركة الموسيقية السودانية الناشئة وكيف تشكّل هويتها في زمن الأزمة.</p>
+      <a class="read" href="https://www.instagram.com/p/DSf3QleCJJr/" target="_blank">اقرأ المقال ←</a>
+    </article>
+
+    <article class="article-card">
+      <p class="cat">توثيق · بورتريه</p>
+      <h3>كودي سيمونز: الرجل الذي وثّق حياة كانيي ويست</h3>
+      <p>خلف كل أيقونة ثقافية، هناك شخص يحمل الكاميرا. قراءة في علاقة التوثيق بالسلطة والقرب والخيانة من خلال قصة كودي سيمونز.</p>
+      <a class="read" href="https://www.instagram.com/p/DRw3y_siLjU/" target="_blank">اقرأ المقال ←</a>
+    </article>
+
+    <article class="article-card">
+      <p class="cat">تلفزيون · تحليل</p>
+      <div class="source-badge">Side Quest</div>
+      <h3>هي كيميا بعد أول سبع حلقات</h3>
+      <p>بعد سبع حلقات، تكشف "كيميا" عن طموح سردي حقيقي — أو ربما عن وعود لم تتحقق بعد. قراءة نقدية في منتصف الموسم.</p>
+      <a class="read" href="https://www.instagram.com/p/DVJeVLXDeV6/" target="_blank">اقرأ المقال ←</a>
+    </article>
+
+  </div>
+
+  <p class="section-label">المهارات</p>
+  <div class="skills-row">
+    <span class="skill-tag gold">الكتابة التحريرية</span>
+    <span class="skill-tag gold">النقد الثقافي</span>
+    <span class="skill-tag gold">صحافة الموسيقى</span>
+    <span class="skill-tag gold">تحليل السينما</span>
+    <span class="skill-tag">السرد الرقمي</span>
+    <span class="skill-tag">كتابة السوشيال ميديا</span>
+    <span class="skill-tag">الريسيرش والتوثيق</span>
+    <span class="skill-tag">تطوير المحتوى المتعدد الوسائط</span>
+    <span class="skill-tag">التواصل مع الجمهور</span>
+    <span class="skill-tag">اللغة العربية — متقدم</span>
+    <span class="skill-tag">اللغة الإنجليزية — محترف</span>
+  </div>
+
+  <p class="section-label">نبذة</p>
+  <div class="about-grid">
+    <div class="about-block">
+      <h4>الخلفية</h4>
+      <p>كاتب ومنتج موسيقي مستقل من مصر. خلفيتي تجمع بين الصحافة الثقافية والإنتاج الموسيقي الإلكتروني، مما يمنحني نظرة من الداخل على المشهد الإبداعي العربي — كمراقب وممارس في آنٍ واحد.</p>
+    </div>
+    <div class="about-block">
+      <h4>المنهج</h4>
+      <p>أكتب عن الثقافة كما أعيشها: بجدية دون ثقل، وبسخرية دون استخفاف. أهتم بالأسئلة التي لا تظهر في العناوين الرئيسية — الطبقات التحتية من اللغة والمكان والهوية.</p>
+    </div>
+  </div>
+
+  <div class="contact-strip">
+    <p>للتواصل أو الاستفسار عن المقالات</p>
+    <div>
+      <a href="mailto:saifashraf2373@gmail.com">saifashraf2373@gmail.com</a>
+      <span class="divider">|</span>
+      <a href="https://www.instagram.com/robotic_saif" target="_blank">@robotic_saif</a>
+    </div>
+  </div>
+
+</div>
+</body>
+</html>
